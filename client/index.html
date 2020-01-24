@@ -1,109 +1,84 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="uusi.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-   crossorigin=""/>
-   <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-   crossorigin=""></script>
-  <title>GraphQL</title>
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="row" style="margin-top:1em;">
-      <div class="col-sm-12" style="text-align:left;padding:0;">
-        <h3 style="line-height:0">GRAPHQL CLIENT</h3>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="uusi.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+    <title>GraphQL</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" style="margin-top:1em;">
+        <div class="col-sm-12" style="text-align:left;padding:0;">
+          <h3 style="line-height:0">GRAPHQL CLIENT</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12" style="height:2em"></div>
+      </div>
+      <div class="row" style="padding-bottom: 0.5em;">
+        <div class="col-sm-3">
+          <div>
+            LON (-180 - 180):<input type="text" name="lon" id="lon" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div>
+            LAT (-90 - 90):<input type="text" name="lat" id="lat" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div>
+            Description:<input type="text" name="description" id="description" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-1">
+          <div>
+            <input type="button" onclick="addPlace()" style="margin-top:1.5em" value="add">
+          </div>
+        </div>
+      </div>
+      <div id="mapid"></div>
+      <div class="row">
+        <div class="col-sm-3" style="padding-bottom: 0.5em;">
+          <div>
+            LON (-180 - 180):<input type="text" name="slon" id="slon" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div>
+            LAT (-90 - 90):<input type="text" name="slat" id="slat" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div>
+            Distance (m):<input type="text" name="distance" id="distance" style="width:100%" required><br>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div>
+            <input type="button" onclick="find()" style="margin-top:1.5em" value="search">
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-sm-12" style="height:2em"></div>
-    </div>
-
-    <div class="row">
-      
-      <div class="col-sm-3">
-        <div>
-          LON (-180 - 180):<input type="text" name="lon" id="lon" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div>
-          LAT (-90 - 90):<input type="text" name="lat" id="lat" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <div>
-          Description:<input type="text" name="description" id="description" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-1">
-        <div>
-          <input type="button" onclick="addPlace()" style="margin-top:1.5em" value="add">
-        </div>
-      </div>
-
-    </div>
-
-    <div id="mapid"></div>
-
-    <div class="row">
-      
-      <div class="col-sm-3">
-        <div>
-          LON (-180 - 180):<input type="text" name="slon" id="slon" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div>
-          LAT (-90 - 90):<input type="text" name="slat" id="slat" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div>
-          Distance (m):<input type="text" name="distance" id="distance" style="width:100%" required><br>
-        </div>
-      </div>
-      <div class="col-sm-3">
-        <div>
-          <input type="button" onclick="find()" style="margin-top:1.5em" value="search">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12" style="text-align:center;font-size:8px;">
-        Copyright &copy; Juhan tuotanto
-      </div>
-    </div>
-
-  </div>
-
-  <script src="jaava.js"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-
-
-</body>
-
+    <script src="jaava.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+  </body>
 </html>
